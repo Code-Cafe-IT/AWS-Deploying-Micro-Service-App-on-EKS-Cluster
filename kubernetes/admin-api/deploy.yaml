@@ -32,7 +32,7 @@ spec:
           - name: MONGO_URL
             valueFrom:
               configMapKeyRef:
-                name: admin-api-secrets
+                name: admin-api-configmap
                 key: connectionstring
           - name: PORT 
             value: "1025"
