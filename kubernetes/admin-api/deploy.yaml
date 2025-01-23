@@ -17,7 +17,7 @@ spec:
         module: admin
     spec:
       nodeSelector:
-        mdoule: admin
+        module: admin
       containers:
       - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-admin-api:latest
         name: admin-api
