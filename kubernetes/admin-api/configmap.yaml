@@ -4,4 +4,4 @@ metadata:
   name: admin-api-configmap
   namespace: admin
 data:
-  connectionstring: "mongodb://user:password@mongo-db-svc.database.svc.cluster.local/?retryWrites=true&w=majority"
+  connectionstring: "mongodb://mongoadmin:secret@mongo-db-svc.database.svc.cluster.local/?retryWrites=true&w=majority"
