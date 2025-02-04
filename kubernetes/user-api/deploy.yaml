@@ -19,7 +19,7 @@ spec:
       nodeSelector:
         module: user
       containers:
-      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-user-api:latest
+      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-user-api:1.0
         name: user-api
         securityContext:
           runAsNonRoot: true

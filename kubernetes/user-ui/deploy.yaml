@@ -21,7 +21,7 @@ spec:
           configMap:
             name: user-ui-cm
       containers:
-      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-user-ui:latest
+      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-user-ui:1.0
         name: user-ui
         securityContext:
           runAsNonRoot: true

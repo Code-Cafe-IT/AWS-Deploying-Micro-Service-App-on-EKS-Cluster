@@ -21,7 +21,7 @@ spec:
           configMap:
             name: admin-ui-cm
       containers:
-      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-admin-ui:latest
+      - image: 187091248012.dkr.ecr.ap-northeast-1.amazonaws.com/lmduc-admin-ui:1.0
         name: admin-ui
         securityContext:
           runAsNonRoot: true
