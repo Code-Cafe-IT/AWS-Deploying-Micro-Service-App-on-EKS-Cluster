@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      #Get Region
+      # Get Region
       - TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
       - export AWS_REGION=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
       - echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
@@ -18,6 +18,7 @@ phases:
       - export ECR_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO
   build:
     commands:
+      # Build and Push
       - docker build -t $ECR-REPO admin-ui/
       - docker tag $ECR-REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO:$IMAGE_TAG
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO:$IMAGE_TAG
