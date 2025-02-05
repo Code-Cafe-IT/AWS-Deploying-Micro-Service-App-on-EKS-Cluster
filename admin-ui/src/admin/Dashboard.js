@@ -71,7 +71,7 @@ const Dashboard = () => {
                                             <Card.Body className='d-flex justify-content-between align-items-center'>
                                                 <div><a href='/' style={{ textDecoration: 'none' }} onClick={(e) => openBooking(booking, e)}>{booking.name}</a></div>
                                                 <div>
-                                                    <Button size="sm" variant="primary" onClick={() => changeStatus(booking._id, 'SCHEDULED')}>Schedule</Button>
+                                                    <Button size="sm" variant="primary" onClick={() => changeStatus(booking._id, 'SCHEDULED')}>Schedule booked</Button>
                                                     <span className='px-1'>{' '}</span>
                                                     <Button size="sm" variant="outline-danger" onClick={() => changeStatus(booking._id, 'SPAM')}>Spam</Button>
                                                 </div>
