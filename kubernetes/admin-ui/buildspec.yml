@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - echo $AWS_REGION
+      - export EKS_CLUSTER_NAME = "lmduc-eks-billing"
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
       - echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" | tee -a ~/.bash_profile
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.${AWS_REGION}.amazonaws.com
@@ -17,17 +18,20 @@ phases:
     commands:
       # Build and Push
       - docker build -t $ECR_REPO admin-ui/
-      - docker tag $ECR_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
-      - docker push $ECR_REPO:latest
+      - docker tag $ECR_URL:latest $ECR_URL:$IMAGE_TAG
+      - docker push $ECR_URL:latest
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
       - echo Pushing the Docker images...
       - echo "Build-Push Successful"
   post_build:
     commands:
       # Reset value image
-      - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' kubernetes/admin-ui/deploy.yaml
+      - pwd 
+      - ll
+      - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' admin-ui/deploy.yaml
       - echo "Updated the image tag in kubernetes/admin-ui/deploy.yaml"
       - cat kubernetes/admin-ui/deploy.yaml | grep image
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
       - kubectl apply -f kubernetes/admin-ui/deploy.yaml
       - echo "Deployment Successful"
       - print '[{"name":"admin-ui", "imageUri":"%s"}]' $ECR_URL:$IMAGE_TAG > build.json
