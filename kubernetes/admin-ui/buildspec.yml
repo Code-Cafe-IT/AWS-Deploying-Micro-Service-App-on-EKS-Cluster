@@ -18,6 +18,7 @@ phases:
       # Build and Push
       - docker build -t $ECR_REPO admin-ui/
       - docker tag $ECR_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+      - docker push $ECR_REPO:latest
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
       - echo Pushing the Docker images...
       - echo "Build-Push Successful"
@@ -26,7 +27,8 @@ phases:
       # Reset value image
       - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' kubernetes/admin-ui/deploy.yaml
       - echo "Updated the image tag in kubernetes/admin-ui/deploy.yaml"
-      - eksctl apply -f kubernetes/admin-ui/deploy.yaml
+      - cat kubernetes/admin-ui/deploy.yaml | grep image
+      - kubectl apply -f kubernetes/admin-ui/deploy.yaml
       - echo "Deployment Successful"
       - print '[{"name":"admin-ui", "imageUri":"%s"}]' $ECR_URL:$IMAGE_TAG > build.json
 artifacts:
