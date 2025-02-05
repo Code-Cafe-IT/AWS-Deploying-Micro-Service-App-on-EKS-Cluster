@@ -27,7 +27,7 @@ phases:
     commands:
       # Reset value imagee
       - pwd 
-      - ll
+      - ls -al
       - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' admin-ui/deploy.yaml
       - echo "Updated the image tag in kubernetes/admin-ui/deploy.yaml"
       - cat kubernetes/admin-ui/deploy.yaml | grep image
