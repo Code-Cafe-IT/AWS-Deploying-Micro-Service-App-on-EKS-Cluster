@@ -28,7 +28,7 @@ phases:
       # Reset value imageee
       - pwd 
       - ls -al
-      - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' admin-ui/deploy.yaml
+      - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' kubernetes/admin-ui/deploy.yaml
       - cat kubernetes/admin-ui/deploy.yaml | grep image
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
       - kubectl apply -f kubernetes/admin-ui/deploy.yaml
