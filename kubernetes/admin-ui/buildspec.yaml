@@ -26,6 +26,7 @@ phases:
       - echo "Build-Push Successful"
   post_build:
     commands:
+      # Reset value image
       - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' kubernetes/admin-ui/deploy.yaml
       - echo "Updated the image tag in kubernetes/admin-ui/deploy.yaml"
       - eksctl apply -f kubernetes/admin-ui/deploy.yaml
