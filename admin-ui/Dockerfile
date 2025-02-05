@@ -1,4 +1,4 @@
-FROM node:17.9.0-slim
+FROM node:17.9.1-slim
 LABEL maintainer="DeekshithSN"
 RUN useradd adminui
 WORKDIR /app

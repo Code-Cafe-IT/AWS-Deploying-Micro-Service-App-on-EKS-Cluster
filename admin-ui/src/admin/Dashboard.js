@@ -63,7 +63,7 @@ const Dashboard = () => {
             <Row className='justify-content-center' style={{ position: 'relative' }}>
                 <Col md={8} xs={12}>
                     <Tabs style={{ position: 'sticky', top: 70, zIndex: 50 }} defaultActiveKey="booked" className="mb-3">
-                        <Tab eventKey="booked" title={<span>Booked Calls</span>}>
+                        <Tab eventKey="booked" title={<span>Booked Calls AWS</span>}>
                             {
                                 bookings.filter(booking => booking.status === 'BOOKED')
                                     .map((booking, i) =>
