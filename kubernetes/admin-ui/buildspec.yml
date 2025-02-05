@@ -25,11 +25,10 @@ phases:
       - echo "Build-Push Successful"
   post_build:
     commands:
-      # Reset value imagee
+      # Reset value imageee
       - pwd 
       - ls -al
       - sed -i 's/${ECR_URL}.*/${ECR_URL}:${IMAGE_TAG}/g' admin-ui/deploy.yaml
-      - echo "Updated the image tag in kubernetes/admin-ui/deploy.yaml"
       - cat kubernetes/admin-ui/deploy.yaml | grep image
       - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
       - kubectl apply -f kubernetes/admin-ui/deploy.yaml
