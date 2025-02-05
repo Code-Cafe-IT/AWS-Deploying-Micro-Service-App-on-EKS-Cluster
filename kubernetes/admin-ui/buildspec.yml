@@ -11,14 +11,14 @@ phases:
       # Set Repository
       - export COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - export IMAGE_TAG=${COMMIT_HASH:=latest}
-      - export ECR-REPO="lmduc-admin-ui"
-      - export ECR_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO
+      - export ECR_REPO="lmduc-admin-ui"
+      - export ECR_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO
   build:
     commands:
       # Build and Push
-      - docker build -t $ECR-REPO admin-ui/
-      - docker tag $ECR-REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO:$IMAGE_TAG
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR-REPO:$IMAGE_TAG
+      - docker build -t $ECR_REPO admin-ui/
+      - docker tag $ECR_REPO:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
       - echo Pushing the Docker images...
       - echo "Build-Push Successful"
   post_build:
